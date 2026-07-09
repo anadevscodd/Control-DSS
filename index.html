@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enquete de Reunião - Sexta-feira</title>
-    <!-- Fonte moderna do Google -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -35,152 +34,28 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
 
-        h1 {
-            text-align: center;
-            color: var(--text-main);
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 2em;
-        }
+        h1 { text-align: center; color: var(--text-main); font-weight: 600; margin-bottom: 10px; font-size: 2em; }
+        p.subtitle { text-align: center; color: var(--text-muted); margin-bottom: 40px; }
+        h2 { font-size: 1.3em; font-weight: 500; color: var(--text-main); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 
-        p.subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-        }
+        .dashboard { background: #F9FAFB; padding: 30px; border-radius: 16px; margin-bottom: 40px; border: 1px solid #E5E7EB; }
+        .vote-row { margin-bottom: 18px; }
+        .vote-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95em; font-weight: 500; color: var(--text-main); }
+        .progress-bar { background-color: #E5E7EB; border-radius: 10px; overflow: hidden; height: 12px; }
+        .progress-fill { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); height: 100%; width: 0%; border-radius: 10px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .alert-banner { background: linear-gradient(135deg, #EEF2FF, #E0E7FF); color: var(--primary-hover); padding: 20px; border-radius: 12px; text-align: center; font-weight: 500; font-size: 1.05em; margin-top: 25px; border: 1px solid #C7D2FE; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
 
-        h2 {
-            font-size: 1.3em;
-            font-weight: 500;
-            color: var(--text-main);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.95em; color: var(--text-main); }
+        input, select { width: 100%; padding: 14px 16px; border: 1px solid #D1D5DB; border-radius: 10px; box-sizing: border-box; font-size: 1em; font-family: inherit; background-color: #FAFAFA; transition: all 0.3s ease; }
+        input:focus, select:focus { outline: none; border-color: var(--primary-color); background-color: #FFFFFF; box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); }
+        
+        button { width: 100%; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; padding: 16px; font-size: 1.1em; border-radius: 10px; cursor: pointer; font-weight: 600; margin-top: 15px; transition: transform 0.2s, box-shadow 0.2s; font-family: inherit; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25); }
 
-        /* Estilos do Dashboard */
-        .dashboard {
-            background: #F9FAFB;
-            padding: 30px;
-            border-radius: 16px;
-            margin-bottom: 40px;
-            border: 1px solid #E5E7EB;
-        }
-
-        .vote-row {
-            margin-bottom: 18px;
-        }
-
-        .vote-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.95em;
-            font-weight: 500;
-            color: var(--text-main);
-        }
-
-        .progress-bar {
-            background-color: #E5E7EB;
-            border-radius: 10px;
-            overflow: hidden;
-            height: 12px;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            height: 100%;
-            width: 0%;
-            border-radius: 10px;
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .alert-banner {
-            background: linear-gradient(135deg, #EEF2FF, #E0E7FF);
-            color: var(--primary-hover);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            font-weight: 500;
-            font-size: 1.05em;
-            margin-top: 25px;
-            border: 1px solid #C7D2FE;
-            display: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        }
-
-        /* Estilos do Formulário */
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            font-size: 0.95em;
-            color: var(--text-main);
-        }
-
-        input, select {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #D1D5DB;
-            border-radius: 10px;
-            box-sizing: border-box;
-            font-size: 1em;
-            font-family: inherit;
-            background-color: #FAFAFA;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            background-color: #FFFFFF;
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-        }
-
-        button {
-            width: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            padding: 16px;
-            font-size: 1.1em;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 15px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-family: inherit;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
-        }
-
-        /* Responsividade para celular */
-        @media (max-width: 600px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .container {
-                padding: 25px;
-            }
-        }
+        @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } .container { padding: 25px; } }
     </style>
 </head>
 <body>
@@ -190,9 +65,9 @@
         <p class="subtitle">Escolha o melhor horário para nossa reunião de alinhamento na sexta-feira.</p>
 
         <div class="dashboard" id="dashboard-section">
-            <h2>📊 Dashboard de Preferências</h2>
+            <h2>📊 Dashboard de Preferências (Ao Vivo)</h2>
             <div id="stats-container">
-                <p style="text-align: center; color: var(--text-muted); font-size: 0.9em;">Nenhum horário selecionado ainda.</p>
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.9em;">Carregando votos...</p>
             </div>
             <div id="winner-alert" class="alert-banner"></div>
         </div>
@@ -207,12 +82,12 @@
                 
                 <div class="form-group">
                     <label for="funcao">Função</label>
-                    <input type="text" id="funcao" placeholder="Ex: Desenvolvedor" required>
+                    <input type="text" id="funcao" placeholder="Ex: Auxiliar Administrativo" required>
                 </div>
 
                 <div class="form-group">
                     <label for="setor">Setor</label>
-                    <input type="text" id="setor" placeholder="Ex: Tecnologia" required>
+                    <input type="text" id="setor" placeholder="Ex: Departamento Pessoal" required>
                 </div>
 
                 <div class="form-group">
@@ -225,7 +100,6 @@
                 <label for="horarioSexta">Qual horário na sexta-feira fica melhor para a reunião?</label>
                 <select id="horarioSexta" required>
                     <option value="" disabled selected>Selecione um horário...</option>
-                    <!-- As opções serão inseridas aqui pelo JavaScript -->
                 </select>
             </div>
 
@@ -233,45 +107,73 @@
         </form>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
     <script>
-        // Gera os horários de 08:00 até 22:00 automaticamente
+        // Configuração oficial do seu Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDvLWxYkc3wd2enfULG3qLDnOnpG6e4sko",
+            authDomain: "control-dss.firebaseapp.com",
+            databaseURL: "https://control-dss-default-rtdb.firebaseio.com",
+            projectId: "control-dss",
+            storageBucket: "control-dss.firebasestorage.app",
+            messagingSenderId: "760824641016",
+            appId: "1:760824641016:web:e6674dc94e4b8ff865520d",
+            measurementId: "G-Z8GP4KH329"
+        };
+
+        // Inicializa o Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // Gera os horários de 08:00 até 22:00
         const timeSlots = [];
         const selectElement = document.getElementById('horarioSexta');
         
         for (let i = 8; i <= 22; i++) {
             const timeString = (i < 10 ? "0" + i : i) + ":00";
             timeSlots.push(timeString);
-            
-            // Adiciona a opção no <select>
             const option = document.createElement('option');
             option.value = timeString;
             option.textContent = timeString;
             selectElement.appendChild(option);
         }
         
-        // Carrega votos salvos no navegador (Para demonstração local)
-        let votes = JSON.parse(localStorage.getItem('meetingPollVotes_v2')) || [];
+        let globalVotes = [];
 
-        function updateDashboard() {
+        // Ouve as mudanças no banco de dados EM TEMPO REAL
+        db.ref('votosReuniao').on('value', (snapshot) => {
+            const data = snapshot.val();
+            globalVotes = [];
+            
+            if (data) {
+                // Transforma o objeto do Firebase em um array
+                for (let id in data) {
+                    globalVotes.push(data[id]);
+                }
+            }
+            updateDashboard(globalVotes);
+        });
+
+        function updateDashboard(votesArray) {
             const statsContainer = document.getElementById('stats-container');
             const winnerAlert = document.getElementById('winner-alert');
 
-            if (votes.length === 0) {
+            if (votesArray.length === 0) {
                 statsContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); font-size: 0.9em;">Nenhum horário selecionado ainda.</p>';
                 winnerAlert.style.display = 'none';
                 return;
             }
 
-            // Conta os votos por horário
             let voteCounts = {};
             timeSlots.forEach(time => voteCounts[time] = 0);
-            votes.forEach(vote => {
+            votesArray.forEach(vote => {
                 if (voteCounts[vote.horario] !== undefined) {
                     voteCounts[vote.horario]++;
                 }
             });
 
-            // Encontra o horário mais votado
             let maxVotes = 0;
             let bestTime = '';
             for (let time in voteCounts) {
@@ -281,12 +183,11 @@
                 }
             }
 
-            // Filtra os horários que não tiveram votos para o dashboard não ficar gigante (opcional, mas deixa mais limpo)
             let html = '';
             timeSlots.forEach(time => {
                 const count = voteCounts[time];
-                if (count > 0 || votes.length === 0) { // Mostra apenas os que têm voto (ou todos se não houver lógica de filtro restrita)
-                    const percentage = (votes.length > 0) ? Math.round((count / votes.length) * 100) : 0;
+                if (count > 0 || votesArray.length === 0) {
+                    const percentage = (votesArray.length > 0) ? Math.round((count / votesArray.length) * 100) : 0;
                     
                     html += `
                         <div class="vote-row">
@@ -302,14 +203,12 @@
                 }
             });
 
-            // Se ainda não tiver HTML gerado (ninguém votou nos horários da lista), mostra mensagem
             if (html === '') {
                  html = '<p style="text-align: center; color: var(--text-muted);">Nenhum voto registrado nos horários disponíveis.</p>';
             }
 
             statsContainer.innerHTML = html;
 
-            // Atualiza o aviso de horário vencedor
             if (maxVotes > 0) {
                 winnerAlert.style.display = 'block';
                 winnerAlert.innerHTML = `✨ O horário de <strong>${bestTime}</strong> está sendo o mais favorável no momento!`;
@@ -318,38 +217,37 @@
 
         // Evento de envio do formulário
         document.getElementById('pollForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Evita recarregar a página
+            e.preventDefault(); 
 
             const newVote = {
                 nome: document.getElementById('nome').value,
                 funcao: document.getElementById('funcao').value,
                 setor: document.getElementById('setor').value,
                 horarioTrabalho: document.getElementById('horarioTrabalho').value,
-                horario: document.getElementById('horarioSexta').value
+                horario: document.getElementById('horarioSexta').value,
+                dataRegistro: new Date().toISOString()
             };
 
-            // Adiciona o novo voto e salva
-            votes.push(newVote);
-            localStorage.setItem('meetingPollVotes_v2', JSON.stringify(votes));
-
-            // Atualiza a tela, limpa o form
-            updateDashboard();
-            this.reset();
-            
-            // Um pequeno feedback visual em vez do alert do navegador
-            const btn = document.querySelector('button[type="submit"]');
-            const originalText = btn.textContent;
-            btn.textContent = "✅ Preferência Enviada!";
-            btn.style.background = "linear-gradient(135deg, #10B981, #059669)";
-            
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = "";
-            }, 3000);
+            // Envia o voto para o banco de dados do Firebase
+            db.ref('votosReuniao').push(newVote)
+                .then(() => {
+                    this.reset();
+                    
+                    const btn = document.querySelector('button[type="submit"]');
+                    const originalText = btn.textContent;
+                    btn.textContent = "✅ Preferência Enviada!";
+                    btn.style.background = "linear-gradient(135deg, #10B981, #059669)";
+                    
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = "";
+                    }, 3000);
+                })
+                .catch((error) => {
+                    console.error("Erro ao salvar voto:", error);
+                    alert("Ocorreu um erro ao enviar seu voto. Tente novamente.");
+                });
         });
-
-        // Atualiza o dashboard ao abrir a página
-        updateDashboard();
     </script>
 </body>
 </html>
