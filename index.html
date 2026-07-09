@@ -4,146 +4,228 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enquete de Reunião - Sexta-feira</title>
+    <!-- Fonte moderna do Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #4F46E5;
+            --primary-hover: #4338CA;
+            --secondary-color: #7C3AED;
+            --bg-color: #F3F4F6;
+            --text-main: #1F2937;
+            --text-muted: #6B7280;
+            --card-bg: #FFFFFF;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            color: var(--text-main);
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
+            min-height: 100vh;
         }
+
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
-        h1, h2 {
+
+        h1 {
             text-align: center;
-            color: #1a73e8;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 2em;
         }
+
+        p.subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 1.3em;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         /* Estilos do Dashboard */
         .dashboard {
-            background-color: #e8f0fe;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-left: 5px solid #1a73e8;
+            background: #F9FAFB;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            border: 1px solid #E5E7EB;
         }
+
         .vote-row {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
+
         .vote-info {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            font-weight: 500;
+            color: var(--text-main);
         }
+
         .progress-bar {
-            background-color: #ddd;
-            border-radius: 5px;
+            background-color: #E5E7EB;
+            border-radius: 10px;
             overflow: hidden;
-            height: 20px;
+            height: 12px;
         }
+
         .progress-fill {
-            background-color: #1a73e8;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             height: 100%;
             width: 0%;
-            transition: width 0.5s ease-in-out;
+            border-radius: 10px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .alert-banner {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 5px;
+            background: linear-gradient(135deg, #EEF2FF, #E0E7FF);
+            color: var(--primary-hover);
+            padding: 20px;
+            border-radius: 12px;
             text-align: center;
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-top: 20px;
-            border: 1px solid #c3e6cb;
+            font-weight: 500;
+            font-size: 1.05em;
+            margin-top: 25px;
+            border: 1px solid #C7D2FE;
             display: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
+
         /* Estilos do Formulário */
-        .form-group {
-            margin-bottom: 15px;
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95em;
+            color: var(--text-main);
         }
+
         input, select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 14px 16px;
+            border: 1px solid #D1D5DB;
+            border-radius: 10px;
             box-sizing: border-box;
             font-size: 1em;
+            font-family: inherit;
+            background-color: #FAFAFA;
+            transition: all 0.3s ease;
         }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: #FFFFFF;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
         button {
             width: 100%;
-            background-color: #1a73e8;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
-            padding: 12px;
+            padding: 16px;
             font-size: 1.1em;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-            transition: background 0.3s;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: inherit;
         }
+
         button:hover {
-            background-color: #1557b0;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+        }
+
+        /* Responsividade para celular */
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 25px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Organização da Reunião de Sexta</h1>
+        <h1>Planejamento da Reunião</h1>
+        <p class="subtitle">Escolha o melhor horário para nossa reunião de alinhamento na sexta-feira.</p>
 
         <div class="dashboard" id="dashboard-section">
             <h2>📊 Dashboard de Preferências</h2>
             <div id="stats-container">
-                <p style="text-align: center; color: #666;">Nenhum horário selecionado ainda.</p>
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.9em;">Nenhum horário selecionado ainda.</p>
             </div>
             <div id="winner-alert" class="alert-banner"></div>
         </div>
 
         <h2>Registre sua disponibilidade</h2>
         <form id="pollForm">
-            <div class="form-group">
-                <label for="nome">Nome Completo</label>
-                <input type="text" id="nome" placeholder="Digite seu nome" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="funcao">Função</label>
-                <input type="text" id="funcao" placeholder="Sua função na empresa" required>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" placeholder="Seu nome" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="funcao">Função</label>
+                    <input type="text" id="funcao" placeholder="Ex: Desenvolvedor" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="setor">Setor</label>
+                    <input type="text" id="setor" placeholder="Ex: Tecnologia" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="horarioTrabalho">Horário de Trabalho</label>
+                    <input type="text" id="horarioTrabalho" placeholder="Ex: 08:00 às 17:00" required>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="setor">Setor</label>
-                <input type="text" id="setor" placeholder="Seu departamento" required>
-            </div>
-
-            <div class="form-group">
-                <label for="horarioTrabalho">Horário de Trabalho</label>
-                <input type="text" id="horarioTrabalho" placeholder="Ex: 08:00 às 17:00" required>
-            </div>
-
-            <div class="form-group">
+            <div class="form-group full-width">
                 <label for="horarioSexta">Qual horário na sexta-feira fica melhor para a reunião?</label>
                 <select id="horarioSexta" required>
-                    <option value="">Selecione um horário...</option>
-                    <option value="13:00">13:00</option>
-                    <option value="14:00">14:00</option>
-                    <option value="15:00">15:00</option>
-                    <option value="16:00">16:00</option>
-                    <option value="17:00">17:00</option>
+                    <option value="" disabled selected>Selecione um horário...</option>
+                    <!-- As opções serão inseridas aqui pelo JavaScript -->
                 </select>
             </div>
 
@@ -152,18 +234,30 @@
     </div>
 
     <script>
-        // Opções de horários disponíveis
-        const timeSlots = ["13:00", "14:00", "15:00", "16:00", "17:00"];
+        // Gera os horários de 08:00 até 22:00 automaticamente
+        const timeSlots = [];
+        const selectElement = document.getElementById('horarioSexta');
+        
+        for (let i = 8; i <= 22; i++) {
+            const timeString = (i < 10 ? "0" + i : i) + ":00";
+            timeSlots.push(timeString);
+            
+            // Adiciona a opção no <select>
+            const option = document.createElement('option');
+            option.value = timeString;
+            option.textContent = timeString;
+            selectElement.appendChild(option);
+        }
         
         // Carrega votos salvos no navegador (Para demonstração local)
-        let votes = JSON.parse(localStorage.getItem('meetingPollVotes')) || [];
+        let votes = JSON.parse(localStorage.getItem('meetingPollVotes_v2')) || [];
 
         function updateDashboard() {
             const statsContainer = document.getElementById('stats-container');
             const winnerAlert = document.getElementById('winner-alert');
 
             if (votes.length === 0) {
-                statsContainer.innerHTML = '<p style="text-align: center; color: #666;">Nenhum horário selecionado ainda.</p>';
+                statsContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); font-size: 0.9em;">Nenhum horário selecionado ainda.</p>';
                 winnerAlert.style.display = 'none';
                 return;
             }
@@ -187,31 +281,38 @@
                 }
             }
 
-            // Gera o HTML das barras de progresso
+            // Filtra os horários que não tiveram votos para o dashboard não ficar gigante (opcional, mas deixa mais limpo)
             let html = '';
             timeSlots.forEach(time => {
                 const count = voteCounts[time];
-                const percentage = (votes.length > 0) ? Math.round((count / votes.length) * 100) : 0;
-                
-                html += `
-                    <div class="vote-row">
-                        <div class="vote-info">
-                            <span>${time}</span>
-                            <span>${count} voto(s) (${percentage}%)</span>
+                if (count > 0 || votes.length === 0) { // Mostra apenas os que têm voto (ou todos se não houver lógica de filtro restrita)
+                    const percentage = (votes.length > 0) ? Math.round((count / votes.length) * 100) : 0;
+                    
+                    html += `
+                        <div class="vote-row">
+                            <div class="vote-info">
+                                <span>🕒 ${time}</span>
+                                <span>${count} voto(s) (${percentage}%)</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${percentage}%"></div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${percentage}%"></div>
-                        </div>
-                    </div>
-                `;
+                    `;
+                }
             });
+
+            // Se ainda não tiver HTML gerado (ninguém votou nos horários da lista), mostra mensagem
+            if (html === '') {
+                 html = '<p style="text-align: center; color: var(--text-muted);">Nenhum voto registrado nos horários disponíveis.</p>';
+            }
 
             statsContainer.innerHTML = html;
 
             // Atualiza o aviso de horário vencedor
             if (maxVotes > 0) {
                 winnerAlert.style.display = 'block';
-                winnerAlert.innerHTML = `⭐ Atenção: O horário de <strong>${bestTime}</strong> é o que mais está sendo favorável para a maioria até o momento!`;
+                winnerAlert.innerHTML = `✨ O horário de <strong>${bestTime}</strong> está sendo o mais favorável no momento!`;
             }
         }
 
@@ -229,12 +330,22 @@
 
             // Adiciona o novo voto e salva
             votes.push(newVote);
-            localStorage.setItem('meetingPollVotes', JSON.stringify(votes));
+            localStorage.setItem('meetingPollVotes_v2', JSON.stringify(votes));
 
-            // Atualiza a tela, limpa o form e avisa o usuário
+            // Atualiza a tela, limpa o form
             updateDashboard();
             this.reset();
-            alert('Sua preferência foi registrada com sucesso!');
+            
+            // Um pequeno feedback visual em vez do alert do navegador
+            const btn = document.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.textContent = "✅ Preferência Enviada!";
+            btn.style.background = "linear-gradient(135deg, #10B981, #059669)";
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = "";
+            }, 3000);
         });
 
         // Atualiza o dashboard ao abrir a página
