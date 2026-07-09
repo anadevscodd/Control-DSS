@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquete de Reunião - Sexta-feira</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #1a73e8;
+        }
+        /* Estilos do Dashboard */
+        .dashboard {
+            background-color: #e8f0fe;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid #1a73e8;
+        }
+        .vote-row {
+            margin-bottom: 15px;
+        }
+        .vote-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .progress-bar {
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 20px;
+        }
+        .progress-fill {
+            background-color: #1a73e8;
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+        .alert-banner {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 20px;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+        /* Estilos do Formulário */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        button {
+            width: 100%;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #1557b0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Organização da Reunião de Sexta</h1>
+
+        <div class="dashboard" id="dashboard-section">
+            <h2>📊 Dashboard de Preferências</h2>
+            <div id="stats-container">
+                <p style="text-align: center; color: #666;">Nenhum horário selecionado ainda.</p>
+            </div>
+            <div id="winner-alert" class="alert-banner"></div>
+        </div>
+
+        <h2>Registre sua disponibilidade</h2>
+        <form id="pollForm">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" placeholder="Digite seu nome" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="funcao">Função</label>
+                <input type="text" id="funcao" placeholder="Sua função na empresa" required>
+            </div>
+
+            <div class="form-group">
+                <label for="setor">Setor</label>
+                <input type="text" id="setor" placeholder="Seu departamento" required>
+            </div>
+
+            <div class="form-group">
+                <label for="horarioTrabalho">Horário de Trabalho</label>
+                <input type="text" id="horarioTrabalho" placeholder="Ex: 08:00 às 17:00" required>
+            </div>
+
+            <div class="form-group">
+                <label for="horarioSexta">Qual horário na sexta-feira fica melhor para a reunião?</label>
+                <select id="horarioSexta" required>
+                    <option value="">Selecione um horário...</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                </select>
+            </div>
+
+            <button type="submit">Enviar Minha Preferência</button>
+        </form>
+    </div>
+
+    <script>
+        // Opções de horários disponíveis
+        const timeSlots = ["13:00", "14:00", "15:00", "16:00", "17:00"];
+        
+        // Carrega votos salvos no navegador (Para demonstração local)
+        let votes = JSON.parse(localStorage.getItem('meetingPollVotes')) || [];
+
+        function updateDashboard() {
+            const statsContainer = document.getElementById('stats-container');
+            const winnerAlert = document.getElementById('winner-alert');
+
+            if (votes.length === 0) {
+                statsContainer.innerHTML = '<p style="text-align: center; color: #666;">Nenhum horário selecionado ainda.</p>';
+                winnerAlert.style.display = 'none';
+                return;
+            }
+
+            // Conta os votos por horário
+            let voteCounts = {};
+            timeSlots.forEach(time => voteCounts[time] = 0);
+            votes.forEach(vote => {
+                if (voteCounts[vote.horario] !== undefined) {
+                    voteCounts[vote.horario]++;
+                }
+            });
+
+            // Encontra o horário mais votado
+            let maxVotes = 0;
+            let bestTime = '';
+            for (let time in voteCounts) {
+                if (voteCounts[time] > maxVotes) {
+                    maxVotes = voteCounts[time];
+                    bestTime = time;
+                }
+            }
+
+            // Gera o HTML das barras de progresso
+            let html = '';
+            timeSlots.forEach(time => {
+                const count = voteCounts[time];
+                const percentage = (votes.length > 0) ? Math.round((count / votes.length) * 100) : 0;
+                
+                html += `
+                    <div class="vote-row">
+                        <div class="vote-info">
+                            <span>${time}</span>
+                            <span>${count} voto(s) (${percentage}%)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            statsContainer.innerHTML = html;
+
+            // Atualiza o aviso de horário vencedor
+            if (maxVotes > 0) {
+                winnerAlert.style.display = 'block';
+                winnerAlert.innerHTML = `⭐ Atenção: O horário de <strong>${bestTime}</strong> é o que mais está sendo favorável para a maioria até o momento!`;
+            }
+        }
+
+        // Evento de envio do formulário
+        document.getElementById('pollForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita recarregar a página
+
+            const newVote = {
+                nome: document.getElementById('nome').value,
+                funcao: document.getElementById('funcao').value,
+                setor: document.getElementById('setor').value,
+                horarioTrabalho: document.getElementById('horarioTrabalho').value,
+                horario: document.getElementById('horarioSexta').value
+            };
+
+            // Adiciona o novo voto e salva
+            votes.push(newVote);
+            localStorage.setItem('meetingPollVotes', JSON.stringify(votes));
+
+            // Atualiza a tela, limpa o form e avisa o usuário
+            updateDashboard();
+            this.reset();
+            alert('Sua preferência foi registrada com sucesso!');
+        });
+
+        // Atualiza o dashboard ao abrir a página
+        updateDashboard();
+    </script>
+</body>
+</html>
